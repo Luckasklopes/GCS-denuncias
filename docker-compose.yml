@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+# Banco
+  mysql:
+    image: mysql:8.0
+    container_name: laravel_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+# PHP e dependencias
+  php:
+    build:
+      context: ./docker/php
+    container_name: laravel_php
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    depends_on:
+      - mysql
+
+# Servidor web
+  nginx:
+    image: nginx:alpine
+    container_name: laravel_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
+volumes:
+  db_data:

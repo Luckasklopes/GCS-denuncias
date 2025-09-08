@@ -1,0 +1,27 @@
+name: Pipeline (develop)
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+
+jobs:
+  simple-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+
+      - name: Instalar dependências Composer
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Mensagem de sucesso
+        run: echo "🚀 Pipeline básica executada com sucesso!"

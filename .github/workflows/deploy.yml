@@ -18,7 +18,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /var/www/GCS-denuncias
-            rm iniciar.sh
             git pull
             sudo chmod +x iniciar.sh
             ./iniciar.sh

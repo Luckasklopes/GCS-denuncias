@@ -17,7 +17,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www/denuncias
-            git pull origin main
+            cd /var/www/GCS-denuncias
+            git pull
             sudo chmod +x iniciar.sh
             ./iniciar.sh

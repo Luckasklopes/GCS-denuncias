@@ -6,7 +6,7 @@ rm .env
 
 cp .env.example .env
 
-docker-compose up -d --build
+docker compose up -d --build
 
 docker exec -it gcs-denuncias-app composer install
 docker exec -it gcs-denuncias-app npm install && npm run build

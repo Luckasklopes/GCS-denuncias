@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-# Banco
+  # Banco
   db:
-    container-name: denuncias-banco
+    container_name: denuncias-banco
     image: mysql:8.0
     restart: unless-stopped
     environment:
@@ -16,9 +16,9 @@ services:
     ports:
       - "3306:3306"
 
-# PHP e dependencias
+  # PHP e dependencias
   app:
-    container-name: denuncias-app
+    container_name: denuncias-app
     build:
       context: ./docker/php
     volumes:
@@ -27,9 +27,9 @@ services:
     depends_on:
       - db
 
-# Servidor web
+  # Servidor web
   nginx:
-    container-name: denuncias-webserver
+    container_name: denuncias-webserver
     image: nginx:alpine
     ports:
       - "8080:80"

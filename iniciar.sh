@@ -1,7 +1,9 @@
 # Script de inicio automatico do projeto
-# Só deve ser executado quando o arquivo .env estiver criado e configurado corretamente
-
 # WORK IN PROGRESS
+docker compose down
+
+rm .env
+
 cp .env.example .env
 
 docker-compose up -d --build

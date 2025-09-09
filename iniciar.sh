@@ -8,8 +8,8 @@ cp .env.example .env
 
 docker-compose up -d --build
 
-docker exec -it laravel_php composer install
-docker exec -it laravel_php npm install && npm run build
+docker exec -it gcs-denuncias-app composer install
+docker exec -it gcs-denuncias-app npm install && npm run build
 
-docker exec -it laravel_php php artisan key:generate
-docker exec -it laravel_php php artisan migrate
+docker exec -it gcs-denuncias-app php artisan key:generate
+docker exec -it gcs-denuncias-app artisan migrate

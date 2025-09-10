@@ -18,6 +18,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /var/www/GCS-denuncias
+            git restore .
             git pull
             sudo chmod +x iniciar.sh
             ./iniciar.sh

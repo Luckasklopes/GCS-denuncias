@@ -13,4 +13,4 @@ docker exec denuncias-app npm install
 docker exec denuncias-app npm run build
 
 docker exec denuncias-app php artisan key:generate
-docker exec denuncias-app artisan migrate
+docker exec denuncias-app php artisan migrate

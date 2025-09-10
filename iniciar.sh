@@ -1,5 +1,6 @@
 # Script de inicio automatico do projeto
 # WORK IN PROGRESS
+# AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 docker compose down
 
 rm .env

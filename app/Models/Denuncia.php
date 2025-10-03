@@ -23,6 +23,7 @@ class Denuncia extends Model
         'cep',
         'anonimo',
         'status',
+        'motivo_rejeicao'
     ];
 
     public function usuario()

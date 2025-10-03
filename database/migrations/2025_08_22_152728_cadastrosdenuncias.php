@@ -8,16 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // 📌 Tabela Usuario
-        Schema::create('usuarios', function (Blueprint $table) {
-            $table->id('id_usuario');
-            $table->string('cpf')->unique();
-            $table->string('nome');
-            $table->string('numero'); // telefone
-            $table->string('senha'); // hash da senha
-            $table->boolean('termos_aceitos');
-            $table->timestamps();
-        });
+        
 
         // 📌 Tabela Admin
         Schema::create('admins', function (Blueprint $table) {
@@ -34,7 +25,7 @@ return new class extends Migration
 
             // FK Usuario (pode ser nulo se anônima)
             $table->unsignedBigInteger('id_usuario')->nullable();
-            $table->foreign('id_usuario')->references('id_usuario')->on('usuarios')->onDelete('set null');
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('set null');
 
             // FK Admin (pode ser nulo se não adotada)
             $table->unsignedBigInteger('id_admin')->nullable();
@@ -53,6 +44,8 @@ return new class extends Migration
             $table->boolean('anonimo')->default(false);
 
             $table->enum('status', ['enviado', 'aceito', 'rejeitado'])->default('enviado');
+
+            $table->text('motivo_rejeicao')->nullable();
 
             $table->timestamp('data_criacao')->useCurrent();
 

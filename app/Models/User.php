@@ -20,7 +20,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'cpf',
+        'numero',
         'password',
+        'aceite_termos',
     ];
 
     /**
@@ -40,6 +43,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'aceite_termos' => 'boolean',
         'password' => 'hashed',
     ];
 }

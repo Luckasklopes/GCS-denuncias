@@ -10,24 +10,18 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
-            $table->id();
-            $table->morphs('tokenable');
-            $table->string('name');
-            $table->string('token', 64)->unique();
-            $table->text('abilities')->nullable();
-            $table->timestamp('last_used_at')->nullable();
-            $table->timestamp('expires_at')->nullable();
-            $table->timestamps();
-        });
-    }
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->string('cpf')->unique()->after('email');
+        $table->string('numero')->nullable()->after('cpf');
+        $table->boolean('aceite_termos')->default(false)->after('password');
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('personal_access_tokens');
-    }
+public function down(): void
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn(['cpf', 'numero', 'aceite_termos']);
+    });
+}
 };

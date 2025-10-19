@@ -12,14 +12,14 @@
         <!-- CPF -->
         <div class="mt-4">
             <x-input-label for="cpf" :value="__('CPF')" />
-            <x-text-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf')" required />
+            <x-text-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf')" required maxlength="11" />
             <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
         </div>
 
         <!-- Número (Telefone) -->
         <div class="mt-4">
             <x-input-label for="numero" :value="__('Número de Contato')" />
-            <x-text-input id="numero" class="block mt-1 w-full" type="text" name="numero" :value="old('numero')" required />
+            <x-text-input id="numero" class="block mt-1 w-full" type="text" name="numero" :value="old('numero')" maxlength="20" />
             <x-input-error :messages="$errors->get('numero')" class="mt-2" />
         </div>
 
@@ -44,11 +44,13 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <!-- Termos Aceitos -->
+        <!-- Aceite Termos -->
         <div class="mt-4 flex items-center">
-            <input id="termos_aceitos" type="checkbox" name="termos_aceitos" value="1" class="mr-2" required>
-            <label for="termos_aceitos" class="text-sm text-gray-600">Aceito os termos e condições</label>
-            <x-input-error :messages="$errors->get('termos_aceitos')" class="mt-2" />
+            <input id="aceite_termos" type="checkbox" name="aceite_termos" class="mr-2" {{ old('aceite_termos') ? 'checked' : '' }} required>
+            <label for="aceite_termos" class="text-sm text-gray-600">
+                {{ __('Aceito os termos de uso e políticas de privacidade') }}
+            </label>
+            <x-input-error :messages="$errors->get('aceite_termos')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">

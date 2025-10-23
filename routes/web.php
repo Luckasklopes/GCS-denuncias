@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/meu-dashboard', [DenunciaController::class, 'userDashboard'])->name('user.dashboard');
-    Route::get('/admin-dashboard', [DenunciaController::class, 'adminDashboard'])->name('admin.dashboard');
+    
 
 
     
@@ -43,7 +43,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
+    //dashboard admin
     Route::get('/admin-dashboard', [DenunciaController::class, 'adminDashboard'])->name('admin.dashboard');
+
+    //Ações de validação
+    Route::post('/denuncias/{id}/aceitar', [DenunciaController::class, 'aceitar'])->name('admin.denuncias.aceitar');
+    Route::post('/denuncias/{id}/rejeitar', [DenunciaController::class, 'rejeitar'])->name('admin.denuncias.rejeitar');
 });
 
 

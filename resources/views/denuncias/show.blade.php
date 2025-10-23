@@ -10,7 +10,7 @@
 
             <!-- Botão Voltar -->
             <div class="mb-4">
-                <a href="{{ route('denuncias.index') }}" 
+                <a href="{{ route('user.dashboard') }}" 
                    class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">
                    ← Voltar para Minhas Denúncias
                 </a>

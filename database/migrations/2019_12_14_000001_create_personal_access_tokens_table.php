@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
 {
     Schema::table('users', function (Blueprint $table) {
-        $table->string('cpf')->unique()->after('email');
-        $table->string('numero')->nullable()->after('cpf');
+        // $table->string('cpf')->unique()->after('email');
+        // $table->string('numero')->nullable()->after('cpf');
         $table->boolean('aceite_termos')->default(false)->after('password');
     });
 }
@@ -21,7 +21,7 @@ return new class extends Migration
 public function down(): void
 {
     Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn(['cpf', 'numero', 'aceite_termos']);
+        $table->dropColumn(['aceite_termos']);
     });
 }
 };

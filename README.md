@@ -106,7 +106,7 @@ php artisan test
 * **RF02 (Alta):** Login de usuário por CPF e senha.
 * **RF03 (Alta):** Cadastro de administrador com matrícula, nome e senha.
 * **RF04 (Alta):** Login de administrador por matrícula e senha.
-* **RF05 (Média):** Redefinição de senha via mensagem para o número cadastrado.
+* **RF05 (Média):** Redefinição de senha via email para o endereço eletrônico cadastrado.
 * **RF06 (Média):** Administradores devem contatar suporte em caso de esquecimento de senha.
 
 ### 📢 Denúncias

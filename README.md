@@ -193,8 +193,8 @@ php artisan test
 * `anonimo` (boolean, DEFAULT false)
 * `status` (ENUM: 'enviado', 'aceito', 'rejeitado', DEFAULT 'enviado')
 * `data_criacao` (timestamp, DEFAULT now())
-
-[casosdeuso.pdf](https://github.com/user-attachments/files/23213548/casosdeuso.pdf)
+*
+* [CasosUML.pdf](https://github.com/user-attachments/files/23213822/CasosUML.pdf)
 
 ---
 

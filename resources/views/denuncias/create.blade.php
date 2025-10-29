@@ -55,7 +55,8 @@
                 </div>
 
                 <div class="flex items-center">
-                    <input type="checkbox" name="anonimo" id="anonimo" class="mr-2">
+                    <input type="hidden" name="anonimo" value="0">
+                    <input type="checkbox" name="anonimo" id="anonimo" value="1" class="mr-2"  >
                     <label for="anonimo">Enviar anonimamente</label>
                 </div>
 

@@ -26,6 +26,10 @@ class Denuncia extends Model
         'motivo_rejeicao'
     ];
 
+    protected $casts = [
+        'anonimo' => 'boolean',
+    ];
+
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'id_usuario', 'id_usuario');

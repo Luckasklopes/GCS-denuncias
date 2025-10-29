@@ -38,7 +38,7 @@ class DenunciaController extends Controller
             'bairro'         => 'nullable|string',
             'rua'            => 'nullable|string',
             'cep'            => 'nullable|string',
-            'anonimo'        => 'nullable|boolean',
+            'anonimo'        => 'required|boolean',
             'foto'           => 'nullable|file|mimes:jpg,png,jpeg|max:2048',
         ]);
 
@@ -55,26 +55,30 @@ class DenunciaController extends Controller
     }
 
     /** DETALHE DA DENÚNCIA (controles de acesso) */
-    public function show($id)
-    {
-        $denuncia = Denuncia::findOrFail($id);
+   public function show($id, Request $request)
+{
+    $denuncia = Denuncia::findOrFail($id);
+    $user     = Auth::user(); // usuário logado
 
-        // Se for anônima e não for admin, bloqueia
-        if ($denuncia->anonimo && !Auth::user()->is_admin) {
-            abort(403, 'Você não tem permissão para ver esta denúncia anônima.');
-        }
-
-        // Se não for admin e a denúncia não pertence ao usuário, bloqueia
-        if (
-            !$denuncia->anonimo &&
-            $denuncia->id_usuario !== Auth::id() &&
-            !Auth::user()->is_admin
-        ) {
-            abort(403, 'Você não tem permissão para ver esta denúncia.');
-        }
-
+    // Admin pode ver tudo
+    if ($user && $user->is_admin) {
         return view('denuncias.show', compact('denuncia'));
     }
+
+    // Denúncia anônima: só admin vê
+    if ($denuncia->anonimo) {
+        abort(403, 'Você não tem permissão para ver esta denúncia anônima.');
+    }
+
+    // Usuário comum: só a própria
+    if ($denuncia->id_usuario !== $user->id) {
+        abort(403, 'Você não tem permissão para ver esta denúncia.');
+    }
+
+    return view('denuncias.show', compact('denuncia'));
+}
+
+
 
     /** DASHBOARD DO USUÁRIO */
     public function userDashboard()
@@ -116,7 +120,13 @@ class DenunciaController extends Controller
             $query->where('status', $request->status);
         }
 
-        if ($request->filled('classificacao')) {
+        
+
+        if ($request->classificacao === 'anonima'){
+            $query->where('anonimo', true);
+        }
+
+        elseif ($request->filled('classificacao')) {
             $query->where('classificacao', $request->classificacao);
         }
 

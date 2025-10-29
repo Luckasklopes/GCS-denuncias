@@ -1,4 +1,4 @@
-<x-app-layout>
+<<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
             Dashboard do Administrador
@@ -65,7 +65,7 @@
 
                 <select name="classificacao" class="bg-gray-800 text-white rounded px-3 py-2 border border-gray-700">
                     <option value="">Categoria (todas)</option>
-                    @foreach(['ambiental'=>'Ambiental','civil_criminal'=>'Civil/Criminal','perturbacao_paz'=>'Perturbação da paz'] as $k=>$v)
+                    @foreach(['ambiental'=>'Ambiental','civil_criminal'=>'Civil/Criminal','perturbacao_paz'=>'Perturbação da paz','anonima'=>'Anônima'] as $k=>$v)
                         <option value="{{ $k }}" @selected(request('classificacao')===$k)>{{ $v }}</option>
                     @endforeach
                 </select>
@@ -76,6 +76,7 @@
             </form>
 
             <div class="overflow-x-auto rounded-lg ring-1 ring-gray-700">
+                @php $back = request()->fullUrl(); @endphp
                 <table class="min-w-full text-sm bg-gray-800 text-gray-100">
                     <thead class="bg-gray-900 text-gray-100 uppercase text-xs tracking-wider">
                         <tr>
@@ -89,8 +90,18 @@
                     <tbody class="divide-y divide-gray-700">
                         @forelse($denuncias as $denuncia)
                             <tr class="odd:bg-gray-800 even:bg-gray-750 hover:bg-gray-700 transition">
-                                <td class="px-4 py-3 font-semibold">#{{ $denuncia->id_denuncia }}</td>
-                                <td class="px-4 py-3">{{ \Illuminate\Support\Str::limit($denuncia->descricao, 80) }}</td>
+                                <td class="px-4 py-3 font-semibold">
+                                    <a href="{{ route('denuncias.show', $denuncia->id_denuncia) }}?back={{ urlencode($back) }}"
+                                       class="text-blue-400 hover:underline">
+                                        #{{ $denuncia->id_denuncia }}
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <a href="{{ route('denuncias.show', $denuncia->id_denuncia) }}?back={{ urlencode($back) }}"
+                                       class="hover:underline text-gray-100">
+                                        {{ \Illuminate\Support\Str::limit($denuncia->descricao, 80) }}
+                                    </a>
+                                </td>
                                 <td class="px-4 py-3">{{ ucfirst(str_replace('_',' ', $denuncia->classificacao)) }}</td>
                                 <td class="px-4 py-3">
                                     @if($denuncia->status === 'enviado')
@@ -131,7 +142,6 @@
                 </table>
             </div>
 
-            <!-- Paginação -->
             <div class="mt-4">
                 {{ $denuncias->links() }}
             </div>
@@ -159,40 +169,20 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Denúncias por categoria
         const categorias = @json($denunciasPorCategoria->keys());
         const valoresCategorias = @json($denunciasPorCategoria->values());
-
         new Chart(document.getElementById('chartCategorias'), {
             type: 'pie',
-            data: {
-                labels: categorias,
-                datasets: [{
-                    data: valoresCategorias,
-                    backgroundColor: ['#4ade80','#60a5fa','#facc15','#f87171']
-                }]
-            }
+            data: { labels: categorias, datasets: [{ data: valoresCategorias, backgroundColor: ['#4ade80','#60a5fa','#facc15','#f87171'] }] }
         });
 
-        // Usuários por dia
         const dias = @json($usuariosPorDia->keys());
         const valoresUsuarios = @json($usuariosPorDia->values());
-
         new Chart(document.getElementById('chartUsuarios'), {
             type: 'line',
-            data: {
-                labels: dias,
-                datasets: [{
-                    label: 'Usuários cadastrados',
-                    data: valoresUsuarios,
-                    borderColor: '#60a5fa',
-                    fill: true,
-                    tension: 0.3
-                }]
-            }
+            data: { labels: dias, datasets: [{ label: 'Usuários cadastrados', data: valoresUsuarios, borderColor: '#60a5fa', fill: true, tension: 0.3 }] }
         });
 
-        // Modal de rejeição
         function abrirModal(id) {
             const modal = document.getElementById('modalRejeicao');
             const form = document.getElementById('formRejeicao');

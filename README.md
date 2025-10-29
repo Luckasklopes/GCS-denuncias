@@ -193,6 +193,15 @@ php artisan test
 * `anonimo` (boolean, DEFAULT false)
 * `status` (ENUM: 'enviado', 'aceito', 'rejeitado', DEFAULT 'enviado')
 * `data_criacao` (timestamp, DEFAULT now())
+<<<<<<< HEAD
+=======
+
+## Diagrama de Casos de Uso
+
+Abaixo está o diagrama de casos de uso do sistema. A versão mais atualizada e o código-fonte (`.puml`) estão na pasta `/docs`.
+
+![Diagrama de Casos de Uso do Sistema de Denúncias](docs/casos_de_uso.png)
+>>>>>>> 41a69fa (Inclusao de plano de gerencia e casos de uso)
 
 ---
 

@@ -1,0 +1,67 @@
+@startuml
+' --- Título ---
+title Diagrama de Casos de Uso: Sistema de Denúncias
+
+' --- Aparência (Opcional) ---
+left to right direction
+skinparam actorStyle stick
+
+' --- Atores ---
+actor Usuário
+actor Administrador
+actor "Sistema de E-mail" as Email <<Sistema Externo>>
+
+' --- Limite do Sistema ---
+rectangle "SISTEMA DE DENÚNCIAS" {
+
+  ' --- Casos de Uso do Usuário ---
+  usecase "Cadastrar-se" as UC_Cadastro
+  usecase "Fazer Login" as UC_LoginUser
+  usecase "Redefinir Senha" as UC_ResetSenha
+  usecase "Registrar Denúncia" as UC_RegistrarDenuncia
+  usecase "Preencher Endereço via CEP" as UC_CEP
+  usecase "Acompanhar Minhas Denúncias" as UC_Acompanhar
+  usecase "Gerenciar Perfil" as UC_Perfil
+
+  ' --- Casos de Uso do Administrador ---
+  usecase "Cadastrar Administrador" as UC_CadastroAdmin
+  usecase "Fazer Login (Admin)" as UC_LoginAdmin
+  usecase "Gerenciar Denúncias" as UC_GerenciarDenuncia
+  usecase "Adotar Denúncia Anônima" as UC_Adotar
+
+  ' === Relacionamentos de Associação (Atores <-> Casos de Uso) ===
+
+  ' --- Associações do Usuário ---
+  Usuário -- UC_Cadastro
+  Usuário -- UC_LoginUser
+  Usuário -- UC_ResetSenha
+  Usuário -- UC_RegistrarDenuncia
+  Usuário -- UC_Acompanhar
+  Usuário -- UC_Perfil
+
+  ' --- Associações do Administrador ---
+  Administrador -- UC_CadastroAdmin
+  Administrador -- UC_LoginAdmin
+  Administrador -- UC_GerenciarDenuncia
+  Administrador -- UC_Adotar
+  
+  ' --- Associação de Sistema Externo ---
+  UC_ResetSenha --> Email : envia link
+
+  ' === Relacionamentos Internos (Inclusão e Extensão) ===
+
+  ' --- <<include>> (Obrigatório) ---
+  ' Casos que exigem login do usuário
+  UC_Acompanhar ..> UC_LoginUser : <<include>>
+  UC_Perfil ..> UC_LoginUser : <<include>>
+
+  ' Casos que exigem login do admin
+  UC_GerenciarDenuncia ..> UC_LoginAdmin : <<include>>
+  UC_Adotar ..> UC_LoginAdmin : <<include>>
+
+  ' --- <<extend>> (Opcional) ---
+  ' Opcional de usar CEP (RF08)
+  UC_CEP ..> UC_RegistrarDenuncia : <<extend>>
+}
+
+@enduml

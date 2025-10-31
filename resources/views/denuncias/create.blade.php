@@ -10,7 +10,7 @@
 
             <!-- Menu -->
             <div class="flex justify-between mb-4">
-                <a href="{{ route('denuncias.index') }}" class="bg-blue-600 px-4 py-2 rounded">Minhas denúncias</a>
+                <a href="{{ route('user.dashboard') }}" class="bg-blue-600 px-4 py-2 rounded">Minhas denúncias</a>
                 <a href="{{ route('denuncias.create') }}" class="bg-green-600 px-4 py-2 rounded">Nova denúncia</a>
                 <a href="{{ route('profile.edit') }}" class="bg-gray-600 px-4 py-2 rounded">Meu perfil</a>
             </div>
@@ -55,12 +55,13 @@
                 </div>
 
                 <div class="flex items-center">
-                    <input type="checkbox" name="anonimo" id="anonimo" class="mr-2">
+                    <input type="hidden" name="anonimo" value="0">
+                    <input type="checkbox" name="anonimo" id="anonimo" value="1" class="mr-2"  >
                     <label for="anonimo">Enviar anonimamente</label>
                 </div>
 
                 <div class="flex justify-end space-x-2">
-                    <a href="{{ route('denuncias.index') }}" class="bg-gray-600 px-4 py-2 rounded">Cancelar</a>
+                    <a href="{{ route('user.dashboard') }}" class="bg-gray-600 px-4 py-2 rounded">Cancelar</a>
                     <button type="submit" class="bg-green-600 px-4 py-2 rounded">Enviar Denúncia</button>
                 </div>
             </form>

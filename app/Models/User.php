@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'aceite_termos',
+        'isAdmin',
     ];
 
     /**
@@ -44,5 +45,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'aceite_termos' => 'boolean',
         'password' => 'hashed',
+        'isadmin' => 'boolean',
     ];
 }

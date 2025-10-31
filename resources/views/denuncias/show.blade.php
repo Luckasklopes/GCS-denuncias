@@ -1,4 +1,4 @@
-<<x-app-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-white leading-tight">
             Detalhes da Denúncia #{{ str_pad($denuncia->id_denuncia, 6, '0', STR_PAD_LEFT) }}
@@ -10,9 +10,15 @@
 
             <!-- Botão Voltar -->
             <div class="mb-4">
-                <a href="{{ route('denuncias.index') }}" 
+                @php
+                    $back = request('back');
+                    $user = Auth::user();
+                    $route = $user && $user->is_admin ? 'admin.dashboard' : 'user.dashboard';
+                @endphp
+
+                <a href="{{ $back ?: route($route) }}"
                    class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">
-                   ← Voltar para Minhas Denúncias
+                   ← Voltar
                 </a>
             </div>
 
@@ -38,13 +44,20 @@
                 <p><strong>Anônimo:</strong> {{ $denuncia->anonimo ? 'Sim' : 'Não' }}</p>
                 <p><strong>Data Criação:</strong> {{ $denuncia->data_criacao }}</p>
 
+                @if($denuncia->motivo_rejeicao)
+                    <p class="text-red-400"><strong>Motivo da Rejeição:</strong> {{ $denuncia->motivo_rejeicao }}</p>
+                @endif
+
                 @if($denuncia->foto)
                     <div>
                         <strong>Foto:</strong>
-                        <img src="{{ asset('storage/'.$denuncia->foto) }}" alt="Foto denúncia" class="max-w-xs mt-2 rounded shadow-lg">
+                        <img src="{{ asset('storage/'.$denuncia->foto) }}" 
+                             alt="Foto denúncia" 
+                             class="max-w-xs mt-2 rounded shadow-lg">
                     </div>
                 @endif
             </div>
         </div>
     </div>
 </x-app-layout>
+
